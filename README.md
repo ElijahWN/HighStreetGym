@@ -23,7 +23,7 @@ A full‑stack MVC web application for a gym management system. Members can brow
     - `public/` - Static assets (CSS, images, icons)
     - `server.mjs` - Express app setup and route mounting
   - `package.json` - backend dependencies and dev scripts
-  - `.env` - environment variables (e.g. DB password)
+  - `.env` - environment variables (required, must create yourself)
 - `database/`
   - `01_create_schema.sql` - database and table DDL (with triggers)
   - `02_seed_data.sql` - initial data (locations, users, activities, sessions, bookings, microblogs)
