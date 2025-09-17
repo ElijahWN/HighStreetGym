@@ -1,0 +1,16 @@
+{
+  "name": "high-street-gym",
+  "version": "0.0.1",
+  "description": "High street gym full stack web app",
+  "license": "GPL-3.0-or-later",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
+}
