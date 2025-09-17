@@ -59,21 +59,20 @@ DATABASE_HOST=localhost
 DATABASE_PORT=3306
 ```
 
-3) Create schema and seed data
+3) Create MySQL Database schema and seed data
 
-Use the MySQL CLI (adjust `-P` and credentials to your setup):
+Use the MySQL CLI (adjust to match your MySQL database config):
 
 ```bash
 mysql -h 127.0.0.1 -P 3306 -u high-street-gym -p < database/01_create_schema.sql
 mysql -h 127.0.0.1 -P 3306 -u high-street-gym -p < database/02_seed_data.sql
 ```
 
-4) Install and start the backend
+4) Install dependencies and start the backend
 
 ```bash
-cd backend
-npm install
-npm run dev -w backend  # starts http://localhost:8080 with nodemon
+npm i # Installs Node.JS dependencies
+npm run start -w backend  # Starts Express server on port 8080
 ```
 
 5) Visit the app
