@@ -13,7 +13,7 @@ import RouterController from "./controllers/RouterController.mjs";
 import { notFound, renderStatus } from "./controllers/ControllerUtils.mjs";
 
 const app = express();
-const PORT = 8081;
+const PORT = process.env.BACKEND_PORT;
 
 // TODO: Enable session middleware
 
