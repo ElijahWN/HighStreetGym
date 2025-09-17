@@ -10,11 +10,11 @@ export default class DatabaseModel {
 
     static {
         this.connection = mysql.createPool({
-            host: "localhost",
-            port: "3307",
-            user: "high-street-gym",
+            host: process.env.DATABASE_HOST,
+            port: process.env.DATABASE_PORT,
+            user: process.env.DATABASE_USER,
             password: process.env.DATABASE_PASSWORD,
-            database: "high_street_gym",
+            database: process.env.DATABASE_NAME,
             nestTables: true,
         });
     }
