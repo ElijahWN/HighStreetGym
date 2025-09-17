@@ -332,11 +332,6 @@ backend/src/public/img/activity-<activity-name>.avif
 
 ## Troubleshooting
 
-- If you cannot connect to MySQL, confirm host/port/user in `DatabaseModel.mjs` and your `backend/.env` password.
+- If you cannot connect to MySQL, confirm host/port/user/password in `backend/.env`.
 - Ensure the schema/seed scripts have been run. You should see sessions in late Aug–Sep 2025 and 200+ bookings.
-- First login for seeded users will upgrade plain passwords to bcrypt hashes automatically.
-
-
-## License
-
-GPL-3.0-or-later (see `backend/package.json`).
+- First login for seeded users will upgrade plain passwords to bcrypt hashes automatically if they are not already hashed.
