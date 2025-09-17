@@ -1,0 +1,14 @@
+<li class="card row">
+  <span class="name">
+    <%= name %>
+    <% if (typeof role !== 'undefined' && role) { %>
+      <span class="label role <%= role %>">
+        <%= role.charAt(0).toUpperCase() + role.slice(1) %>
+      </span>
+    <% } %>
+  </span>
+  <div class="icon right">
+    <img src="/img/settings.svg" alt="Manage icon" />
+    <a href="<%= url %>" class="button settings">Manage</a>
+  </div>
+</li>

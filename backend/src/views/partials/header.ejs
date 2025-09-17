@@ -1,0 +1,24 @@
+<header>
+    <input type="checkbox" id="nav-toggle" aria-label="Toggle navigation" />
+    <label class="menu-toggle" for="nav-toggle" aria-label="Open navigation"></label>
+    <a href="<%= ROUTES.HOME.getPath() %>">
+        <h1>High Street Gym</h1>
+    </a>
+    <nav>
+        <a href="<%= ROUTES.ABOUT.getPath() %>">About</a>
+        <a href="<%= ROUTES.CONTACT.getPath() %>">Contact</a>
+        <a href="<%= ROUTES.ACTIVITIES.getPath() %>">Activities</a>
+        <a href="<%= ROUTES.MICROBLOGS.getPath() %>">Microblogs</a>
+    </nav>
+    <div>
+        <% if (user) { %>
+            <a href="<%= ROUTES.DASHBOARD.getPath() %>" class="icon-button" title="Account">
+                <img src="/img/account.svg" alt="Account" />
+            </a>
+            <a href="<%= ROUTES.LOGOUT.getPath() %>" class="button">Logout</a>
+        <% } else { %>
+            <a href="<%= ROUTES.REGISTER.getPath() %>" class="button secondary">Register</a>
+            <a href="<%= ROUTES.LOGIN.getPath() %>" class="button">Login</a>
+        <% } %>
+    </div>
+</header>

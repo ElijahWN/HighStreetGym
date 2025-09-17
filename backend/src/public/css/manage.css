@@ -1,0 +1,64 @@
+section.manage {
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  gap: var(--gap2);
+}
+
+.manage .row.items-center {
+  width: 100%;
+  margin-inline: auto;
+  flex-wrap: wrap;
+  gap: var(--gap2);
+}
+
+.manage .card.secondary {
+  width: 100%;
+}
+
+section.manage form>div:last-of-type {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap3);
+}
+
+section.manage form>div:last-of-type>* {
+  min-width: 0;
+}
+
+.manage ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.manage .row.items-center>* {
+  min-width: 0;
+}
+
+section.manage ul>li.card.row,
+section.manage .card {
+  padding: var(--gap2);
+  width: 100%;
+  max-width: 100%;
+}
+
+
+/* Space label from name when inline in list */
+section.manage .name .label.role {
+  margin-left: var(--gap1);
+}
+
+@media (max-width: 768px) {
+  section.manage .card,
+  section.manage ul>li.card.row {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  section.manage .row.items-center {
+    width: 100%;
+    gap: var(--gap2);
+  }
+}

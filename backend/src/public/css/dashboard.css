@@ -1,0 +1,139 @@
+section.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap4);
+  margin: var(--gap4) auto;
+}
+
+section.dashboard>h2 {
+  margin-bottom: calc(-1 * var(--gap2));
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap3);
+  width: 100%;
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+.stat-grid>* {
+  min-width: 0;
+}
+
+.stat-grid.single {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 20rem;
+  justify-content: center;
+}
+
+.stat.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap2);
+  width: 100%;
+  max-width: 100%;
+  background: var(--background2);
+  padding: var(--gap2);
+}
+
+.stat.card .icon.left {
+  margin-top: auto;
+}
+
+.stat.card .icon {
+  width: 100%;
+}
+
+.stat.card .button {
+  display: block;
+  width: 100%;
+  align-self: stretch;
+}
+
+.stat.card>h3 {
+  color: var(--text-accent);
+}
+
+.stat.card>span {
+  color: var(--text2);
+}
+
+.account.card {
+  border: 1px solid var(--border1);
+  border-radius: var(--gap1);
+  padding: var(--gap3);
+  width: 100%;
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+.account h3 {
+  text-align: center;
+  margin-bottom: var(--gap2);
+  padding-bottom: var(--gap2);
+  border-bottom: 1px solid var(--border1);
+  width: 100%;
+}
+
+.account form {
+  width: 100%;
+}
+
+.account form>.card-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap2);
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: var(--gap2);
+  width: 100%;
+  background-color: var(--background1);
+}
+
+.account form .field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap2);
+  width: 100%;
+}
+
+.account form .field>.icon,
+.account form .field>.label.role {
+  flex: 1;
+}
+
+.label.role {
+  font-weight: bold;
+  padding: var(--gap1) var(--gap2);
+  border: 1px solid var(--border1);
+  background: var(--background1);
+  border-radius: var(--gap1);
+  text-align: center;
+}
+
+
+@media (max-width: 768px) {
+  .stat-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+
+  .stat-card.card {
+    padding: var(--gap2);
+  }
+
+  .account form .field.inline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--gap1);
+  }
+
+  .account .card-row:first-of-type .field.inline {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap2);
+  }
+}

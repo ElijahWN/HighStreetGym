@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <main>
+      <%- include("partials/header.ejs") %>
+      <section class="dashboard">
+        <h2>Admin Dashboard</h2>
+
+        <div class="stat-grid">
+          <div class="stat card">
+            <h3>Total Users</h3>
+            <span><%= totalUsers %> Users</span>
+            <div class="icon left">
+              <img src="/img/settings.svg" alt="settings" />
+              <a class="button" href="<%= ROUTES.MANAGE_USERS.getPath() %>">Manage Users</a>
+            </div>
+          </div>
+
+          <div class="stat card">
+            <h3>Upcoming Sessions</h3>
+            <span><%= upcomingSessions %> Sessions</span>
+            <div class="icon left">
+              <img src="/img/date.svg" alt="calendar" />
+              <a class="button" href="<%= ROUTES.SESSIONS.getPath() %>">Manage All Gym Sessions</a>
+            </div>
+          </div>
+
+          <div class="stat card">
+            <h3>Bookings</h3>
+            <span><%= bookingsCount %> Bookings</span>
+            <div class="icon left">
+              <img src="/img/date.svg" alt="bookings" />
+              <a class="button" href="<%= ROUTES.MANAGE_BOOKINGS.getPath() %>">Manage Bookings</a>
+            </div>
+          </div>
+
+          <div class="stat card">
+            <h3>Create Session</h3>
+            <span>Schedule a new session</span>
+            <div class="icon left">
+              <img src="/img/edit.svg" alt="create" />
+              <a class="button" href="<%= ROUTES.CREATE_SESSION.getPath() %>">Create New Session</a>
+            </div>
+          </div>
+
+          <div class="stat card">
+            <h3>Total Posts</h3>
+            <span><%= totalPosts %> Blog Posts</span>
+            <div class="icon left">
+              <img src="/img/edit.svg" alt="edit" />
+              <a class="button" href="<%= ROUTES.MICROBLOGS.getPath() %>">Manage Blog Posts</a>
+            </div>
+          </div>
+
+          <div class="stat card">
+            <h3>Gym Locations</h3>
+            <span><%= locationsCount %> Gym Locations</span>
+            <div class="icon left">
+              <img src="/img/location.svg" alt="location" />
+              <a class="button" href="<%= ROUTES.MANAGE_LOCATIONS.getPath() %>">Manage Locations</a>
+            </div>
+          </div>
+
+          <div class="stat card">
+            <h3>Activities</h3>
+            <span><%= activitiesCount %> Activities</span>
+            <div class="icon left">
+              <img src="/img/run.svg" alt="activities" />
+              <a class="button" href="<%= ROUTES.MANAGE_ACTIVITIES.getPath() %>">Manage Gym Activities</a>
+            </div>
+          </div>
+        </div>
+
+        <%- include("partials/account_form.ejs", { user }) %>
+      </section>
+      <%- include("partials/footer.ejs") %>
+    </main>
+  </body>
+</html>

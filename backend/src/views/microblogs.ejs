@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("partials/head.ejs") %>
+        <link rel="stylesheet" href="/css/microblogs.css" />
+        <title>High Street Gym - Blogs</title>
+    </head>
+    <body>
+        <main>
+            <%- include("partials/header.ejs") %>
+
+            <section class="microblogs">
+                <h2>Microblogs</h2>
+                <form class="toolbar" method="get">
+                    <input
+                        type="search"
+                        name="search"
+                        placeholder="Search posts by title, content, author or date"
+                        aria-label="Search microblogs"
+                        value="<%= rawSearch %>"
+                        minlength="2"
+                        maxlength="100"
+                    />
+                    <% if (user && !showCreate) { %>
+                        <a href="<%= ROUTES.MICROBLOGS_NEW.getPath() %>" class="button">New</a>
+                    <% } %>
+                </form>
+
+                <% if (showCreate && user) { %>
+                <form class="create card secondary" method="post" action="<%= ROUTES.MICROBLOGS.getPath() %>">
+                    <h2>Create Blog Post</h2>
+
+                    <div>
+                        <label for="title">Title</label>
+                        <div class="icon left">
+                            <img src="/img/edit.svg" alt="Title icon" />
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                placeholder="My First Post"
+                                required
+                                minlength="3"
+                                maxlength="100"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="content">Content</label>
+                        <div class="icon left">
+                            <img src="/img/edit.svg" alt="Content icon" />
+                            <textarea
+                                id="content"
+                                name="content"
+                                placeholder="This is my first ever blog post!"
+                                required
+                                minlength="10"
+                                maxlength="2000"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a
+                            href="<%= ROUTES.MICROBLOGS.getPath() %>"
+                            class="button secondary full"
+                        >
+                            Cancel
+                        </a>
+                        <div class="icon right full">
+                            <img src="/img/arrow-right.svg" alt="Create Icon" />
+                            <input type="submit" class="button full" value="Create Post" />
+                        </div>
+                    </div>
+                </form>
+                <% } %>
+
+                <div class="list">
+                    <% blogs.forEach(blog => { %>
+                    <article class="post secondary">
+                        <div class="header">
+                            <h3><%= blog.title || 'Post' %></h3>
+                            <div class="meta">
+                                <span class="date date-long"><%= formatDisplayDate(blog.uploadTime) %></span>
+                                <span class="date date-short"><%= formatDisplayDate(blog.uploadTime, true) %></span>
+                                <% if (user && (user.role === 'admin' || user.id === blog.user)) { %>
+                                    <form method="post" action="<%= ROUTES.MICROBLOGS_DELETE.getPath(blog.id) %>" class="inline icon left">
+                                        <img src="/img/delete.svg" alt="Delete" />
+                                        <input type="submit" class="button delete" value="Delete" />
+                                    </form>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="byline">By <%= users.find(user => user.id === blog.user)?.username ?? 'User' %></div>
+                        <p class="content"><%= blog.content %></p>
+                    </article>
+                    <% }) %>
+                </div>
+            </section>
+
+            <%- include("partials/footer.ejs") %>
+        </main>
+    </body>
+</html>
+

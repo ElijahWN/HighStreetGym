@@ -1,0 +1,136 @@
+section.manage-session {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap3);
+}
+
+section.manage-session>h2 {
+  margin-bottom: var(--gap1);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: fit-content;
+  width: 100%;
+  gap: var(--gap3);
+}
+
+.content>* {
+  min-width: 0;
+  width: 100%;
+}
+
+.card {
+  background-color: var(--background2);
+  padding: var(--gap2);
+}
+
+.card.info {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  gap: var(--gap2);
+}
+
+.card.info>h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--gap1);
+}
+
+.field>label {
+  color: var(--text2);
+  font-size: var(--font2);
+}
+
+.field>input,
+.field>select {
+  width: 100%;
+}
+
+.card.members {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap2);
+}
+
+.card.members .header-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gap1);
+}
+
+.card.members .header-row h3 {
+  color: var(--text-accent);
+}
+
+.card.members .list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap1);
+  max-height: 9rem;
+  overflow: auto;
+}
+
+.members .list>.member {
+  border: 1px solid var(--border1);
+  border-radius: var(--gap1);
+  background: var(--background1);
+}
+
+.member.row {
+  display: flex;
+  gap: var(--gap2);
+  font-size: var(--font2);
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gap1);
+  border: 1px solid var(--border1);
+  border-radius: var(--gap1);
+  background: var(--background1);
+}
+
+.member.row .name {
+  color: var(--text1);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.member.row form {
+  margin-inline: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap2);
+  width: 100%;
+  max-width: 100%;
+}
+
+.button.full {
+  width: 100%;
+}
+
+.add-member {
+  display: flex;
+  gap: var(--gap1);
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .card.members .list {
+    max-height: 16rem;
+  }
+}

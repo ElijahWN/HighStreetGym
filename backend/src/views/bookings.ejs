@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="/css/sessions.css" />
+    <title>High Street Gym - Bookings</title>
+  </head>
+  <body>
+    <main>
+      <%- include("partials/header.ejs") %>
+      <section class="sessions">
+        <% if (user?.role === 'trainer') { %>
+          <h2>Assigned Sessions</h2>
+        <% } else { %>
+          <h2>Your Bookings</h2>
+        <% } %>
+        <form method="GET" action="/bookings">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search by activity, trainer, location or date"
+            value="<%= searchTerm %>"
+          />
+          <select name="location" id="location" onchange="this.form.submit()">
+            <option value="all" <%= locationFilter === 'all' ? 'selected' : '' %>>All Locations</option>
+            <% locations.forEach(location => { %>
+              <option
+                value="<%= location.name.toLowerCase() %>"
+                <%= locationFilter === location.name.toLowerCase() ? 'selected' : '' %>
+              >
+                <%= location.name %>
+              </option>
+            <% }); %>
+          </select>
+          <% if (user?.role === 'trainer') { %>
+            <a class="button" href="/manage/session/new">New Session</a>
+          <% } else { %>
+            <a class="button" href="/sessions">New Booking</a>
+          <% } %>
+        </form>
+
+        <% if (sessions.length) { %>
+          <% sessions.forEach(session => { %>
+            <%- include('partials/session_card.ejs', {
+              session,
+              user,
+              mode: 'bookings',
+              formatActivityName,
+              formatDate,
+              timeUntil,
+              spotsLeft: session.activity.capacity - session.bookings.length
+            }) %>
+          <% }); %>
+        <% } else if (user?.role === 'trainer') { %>
+          <div class="no-sessions">
+            <p>No upcoming sessions assigned to you.</p>
+          </div>
+        <% } else { %>
+          <div class="no-sessions">
+            <p>No bookings found.</p>
+          </div>
+        <% } %>
+      </section>
+      <%- include("partials/footer.ejs") %>
+    </main>
+  </body>
+</html>

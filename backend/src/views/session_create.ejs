@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="/css/manage_session.css" />
+    <title>High Street Gym - Create Session</title>
+  </head>
+  <body>
+    <main>
+      <%- include("partials/header.ejs") %>
+      <section class="manage-session col items-center gap-3">
+        <h2 class="mb-1">Create Session</h2>
+
+        <form
+          id="create-form"
+          class="card secondary info full"
+          action="<%= ROUTES.CREATE_SESSION.getPath() %>"
+          method="post"
+        >
+          <div class="field inline">
+            <label for="date">Date</label>
+            <div class="icon left">
+              <img src="/img/date.svg" alt="Date icon" />
+              <input
+                type="date"
+                id="date"
+                name="date"
+                class="full"
+                value="<%= toDateValue(now) %>"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field inline">
+            <label for="time">Time</label>
+            <div class="icon left">
+              <img src="/img/time.svg" alt="Time icon" />
+              <input
+                type="time"
+                id="time"
+                name="time"
+                class="full"
+                value="<%= toTimeValue(now) %>"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field inline">
+            <label for="trainer">Trainer</label>
+            <% if (user?.role === 'trainer') { %>
+              <input type="hidden" name="trainer" value="<%= user.id %>" />
+              <div class="icon left">
+                <img src="/img/person.svg" alt="Trainer icon" />
+                <input type="text" class="full" value="<%= `${user.firstName} ${user.lastName}`.trim() || user.username %>" disabled />
+              </div>
+            <% } else { %>
+              <div class="icon left">
+                <img src="/img/person.svg" alt="Trainer icon" />
+                <select id="trainer" name="trainer" class="full" required>
+                  <% trainers.forEach(trainer => { %>
+                    <option value="<%= trainer.id %>">
+                      <%= `${trainer.firstName} ${trainer.lastName}`.trim() || trainer.username %>
+                    </option>
+                  <% }) %>
+                </select>
+              </div>
+            <% } %>
+          </div>
+
+          <div class="field inline">
+            <label for="location">Location</label>
+            <div class="icon left">
+              <img src="/img/location.svg" alt="Location icon" />
+              <select id="location" name="location" class="full" required>
+                <% locations.forEach(location => { %>
+                  <option value="<%= location.id %>">
+                    <%= location.name %>
+                  </option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+
+          <div class="field inline">
+            <label for="activity">Type</label>
+            <div class="icon left">
+              <img src="/img/run.svg" alt="Activity icon" />
+              <select id="activity" name="activity" class="full" required>
+                <% activities.forEach(activity => { %>
+                  <option value="<%= activity.id %>">
+                    <%= activity.name %>
+                  </option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+        </form>
+
+        <div class="actions col gap-2">
+          <div class="grid cols-2 gap-2">
+            <a href="<%= ROUTES.DASHBOARD.getPath() %>" class="button secondary">Cancel</a>
+            <div class="icon right">
+              <img src="/img/save.svg" alt="Create icon" />
+              <input type="submit" class="button full" form="create-form" value="Create">
+            </div>
+          </div>
+        </div>
+      </section>
+      <%- include("partials/footer.ejs") %>
+    </main>
+  </body>
+</html>

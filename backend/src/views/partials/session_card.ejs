@@ -1,0 +1,56 @@
+<div class="session">
+  <div>
+    <div>
+      <h3><%= formatActivityName(session.activity.name) %></h3>
+      <% if (session.session.start < new Date()) { %>
+        <span class="booked">Session Expired</span>
+      <% } else if (spotsLeft <= 0) { %>
+        <span class="booked">Fully Booked</span>
+      <% } else { %>
+        <span class="spots <%= spotsLeft <= 3 ? "low" : "available"%>">
+          <%= spotsLeft %> spots remaining
+        </span>
+      <% } %>
+    </div>
+    <span>
+      with <%= session.trainer.firstName %> <%= session.trainer.lastName %> at <%= session.location.name %>
+    </span>
+    <span>
+      <%= formatDate(session.session.start) %>
+    </span>
+  </div>
+  <div class="icon right">
+    <% if (mode === 'sessions') { %>
+      <% if (user?.role === 'admin') { %>
+        <img src="/img/settings.svg" alt="action icon">
+        <a href="<%= ROUTES.MANAGE_SESSION.getPath(session.session.id) %>" class="button secondary">Manage</a>
+      <% } else if (session.session.start < new Date()) { %>
+        <img src="/img/date.svg" alt="action icon">
+        <label class="button booked-out">Session Expired</label>
+      <% } else if (spotsLeft <= 0) { %>
+        <img src="/img/date.svg" alt="action icon">
+        <label class="button booked-out">Booked Out</label>
+      <% } else if (session.bookings.some(booking => booking.id === user?.id)) { %>
+        <img src="/img/person.svg" alt="action icon">
+        <label class="button booked-user">Booked</label>
+      <% } else { %>
+        <img src="/img/arrow-right.svg" alt="action icon">
+        <a href="<%= ROUTES.BOOK_SESSION.getPath(session.session.id) %>" class="button book-now">Book Now</a>
+      <% } %>
+    <% } else { %>
+      <% if (user?.role === 'trainer') { %>
+        <img src="/img/settings.svg" alt="action icon">
+        <a href="<%= ROUTES.MANAGE_SESSION.getPath(session.session.id) %>" class="button secondary">Manage</a>
+      <% } else if (user?.role === 'member') { %>
+        <img class="time-icon" src="/img/time.svg" alt="action icon">
+        <label class="button secondary time-button"><%= timeUntil(session.session.start) %></label>
+        <img class="cancel-icon" src="/img/delete.svg" alt="action icon">
+        <a href="<%= ROUTES.BOOKINGS_CANCEL.getPath(session.session.id) %>" class="button cancel">Cancel</a>
+      <% } else { %>
+        <img src="/img/time.svg" alt="action icon">
+        <label class="button secondary"><%= timeUntil(session.session.start) %></label>
+      <% } %>
+    <% } %>
+  </div>
+</div>
+

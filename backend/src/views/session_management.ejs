@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="/css/manage_session.css" />
+    <title>High Street Gym - Manage Session</title>
+</head>
+
+<body>
+  <main>
+    <%- include("partials/header.ejs") %>
+      <section class="manage-session col items-center gap-3">
+        <h2 class="mb-1">Manage Session</h2>
+
+        <div class="content grid gap-3">
+          <form id="session-form"
+            class="card secondary p-2 col gap-2 info"
+            action="<%= ROUTES.MANAGE_SESSION.getPath(sessionWithBookings.session.id) %>"
+            method="post"
+          >
+            <h3>Session Info</h3>
+            <div class="field inline">
+              <label for="date">Date</label>
+              <div class="icon left">
+                <img src="/img/date.svg" alt="Date icon" />
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  class="full"
+                  required
+                  value="<%= toDateValue(sessionWithBookings.session.start) %>"
+                />
+              </div>
+            </div>
+
+            <div class="field inline">
+              <label for="time">Time</label>
+              <div class="icon left">
+                <img src="/img/time.svg" alt="Time icon" />
+                <input
+                  type="time"
+                  id="time"
+                  name="time"
+                  class="full"
+                  required
+                  value="<%= toTimeValue(sessionWithBookings.session.start) %>"
+                />
+              </div>
+            </div>
+
+            <div class="field inline">
+              <label for="trainer">Trainer</label>
+              <% if (isTrainer) { %>
+                <input type="hidden" name="trainer" value="<%= user.id %>" />
+                <div class="icon left">
+                  <img src="/img/person.svg" alt="Trainer icon" />
+                  <input type="text"
+                    class="full"
+                    value="<%= `${user.firstName} ${user.lastName}`.trim() || user.username %>"
+                    disabled
+                  />
+                </div>
+                <% } else { %>
+                  <div class="icon left">
+                    <img src="/img/person.svg" alt="Trainer icon" />
+                    <select id="trainer" name="trainer" class="full" required>
+                      <% trainers.forEach(trainer => { %>
+                        <option
+                          value="<%= trainer.id %>"
+                          <%=sessionWithBookings.session.trainer===trainer.id ? 'selected' : '' %>
+                        >
+                          <%= `${trainer.firstName} ${trainer.lastName}`.trim() || trainer.username %>
+                        </option>
+                        <% }) %>
+                    </select>
+                  </div>
+                  <% } %>
+            </div>
+
+            <div class="field inline">
+              <label for="location">Location</label>
+              <div class="icon left">
+                <img src="/img/location.svg" alt="Location icon" />
+                <select id="location" name="location" class="full" required>
+                  <% locations.forEach(location => { %>
+                    <option
+                      value="<%= location.id %>"
+                      <%=sessionWithBookings.session.location===location.id ? 'selected' : '' %>
+                    >
+                      <%= location.name %>
+                    </option>
+                    <% }) %>
+                </select>
+              </div>
+            </div>
+
+            <div class="field inline">
+              <label for="activity">Type</label>
+              <div class="icon left">
+                <img src="/img/run.svg" alt="Activity icon" />
+                <select id="activity" name="activity" class="full" required>
+                  <% activities.forEach(activity => { %>
+                    <option
+                      value="<%= activity.id %>"
+                      <%=sessionWithBookings.session.activity===activity.id ? 'selected' : '' %>
+                    >
+                      <%= activity.name %>
+                    </option>
+                    <% }) %>
+                </select>
+              </div>
+            </div>
+          </form>
+
+          <div class="card secondary p-2 members col gap-2">
+            <div class="row items-center gap-1">
+              <h3 class="text accent">
+                <%= sessionWithBookings.bookings.length %>/<%= capacity %>
+              </h3>
+              <span>Members</span>
+            </div>
+            <div class="list col gap-1">
+              <% if (members.length) { %>
+                <% members.forEach(member => { %>
+                  <div class="member row between items-center p-1">
+                    <span class="name">
+                      <%= member.name %>
+                    </span>
+                    <form
+                      class="icon right"
+                      method="post"
+                      action="<%= ROUTES.MANAGE_SESSION_BOOKING_DELETE.getPath(sessionWithBookings.session.id, member.id) %>"
+                    >
+                      <img src="/img/delete.svg" alt="Delete icon" />
+                      <input type="submit" class="button delete" value="Remove">
+                    </form>
+                  </div>
+                  <% }) %>
+                    <% } else { %>
+                      <div class="empty">No members</div>
+                      <% } %>
+            </div>
+
+            <% if (isFull) { %>
+              <div class="empty">Session is full</div>
+            <% } else if (availableMembers.length) { %>
+              <form
+                class="add-member items-center gap-1"
+                method="post"
+                action="<%= ROUTES.MANAGE_SESSION_BOOKING_CREATE.getPath(sessionWithBookings.session.id) %>"
+              >
+                <div class="icon left full">
+                  <img src="/img/person.svg" alt="Member icon" />
+                  <select id="member" name="member" required>
+                    <% availableMembers.forEach(member => { %>
+                      <option value="<%= member.id %>"><%= member.name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="icon right full">
+                  <img src="/img/save.svg" alt="Add icon" />
+                  <input type="submit" class="button full" value="Add Member" />
+                </div>
+              </form>
+            <% } else { %>
+              <div class="empty">No available members to add</div>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="actions col gap-2">
+          <form
+            class="icon right full"
+            action="<%= ROUTES.MANAGE_SESSION_DELETE.getPath(sessionWithBookings.session.id) %>"
+            method="post"
+          >
+            <img src="/img/delete.svg" alt="Delete icon" />
+            <input type="submit" class="button delete full" value="Cancel Session">
+          </form>
+          <div class="grid cols-2 gap-2">
+            <a href="<%= isTrainer ? ROUTES.BOOKINGS.getPath() : ROUTES.SESSIONS.getPath() %>" class="button secondary">
+              Back
+            </a>
+            <div class="icon right">
+              <img src="/img/save.svg" alt="Save icon" />
+              <input type="submit" class="button full" form="session-form" value="Save">
+            </div>
+          </div>
+        </div>
+      </section>
+      <%- include("partials/footer.ejs") %>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <title>Member Dashboard</title>
+  </head>
+  <body>
+    <main>
+      <%- include("partials/header.ejs") %>
+      <section class="dashboard">
+        <h2>Member Dashboard</h2>
+
+        <div class="stat-grid single">
+          <div class="stat card">
+            <h3>Sessions This Week</h3>
+            <span><%= sessionsThisWeek %> Booked Sessions</span>
+            <div class="icon left">
+              <img src="/img/date.svg" alt="calendar" />
+              <a class="button" href="<%= ROUTES.BOOKINGS.getPath() %>">View Bookings</a>
+            </div>
+          </div>
+        </div>
+
+        <%- include("partials/account_form.ejs", { user }) %>
+      </section>
+      <%- include("partials/footer.ejs") %>
+    </main>
+  </body>
+</html>

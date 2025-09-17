@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("partials/head.ejs") %>
+        <link rel="stylesheet" href="/css/contact.css" />
+        <title>High Street Gym - Contact</title>
+    </head>
+    <body>
+        <main>
+            <%- include("partials/header.ejs") %>
+
+            <section class="contact">
+                <div class="intro">
+                    <h2>Our Club Locations</h2>
+                    <p>
+                        We're here to help you on your fitness journey. Find information about our
+                        locations below or check our website for class timetables.
+                    </p>
+                </div>
+
+                <div class="locations">
+                    <% locations.forEach((location) => { %>
+                        <article class="card">
+                            <h3><%= location.name %></h3>
+                            <p><%= location.description %></p>
+                            <p class="muted">
+                                <%= location.availability %><br>
+                                @ <%= location.address %>
+                            </p>
+                        </article>
+                    <% }) %>
+                </div>
+            </section>
+
+            <%- include("partials/footer.ejs") %>
+        </main>
+    </body>
+</html>

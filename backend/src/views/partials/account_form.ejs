@@ -1,0 +1,113 @@
+<section class="account card secondary">
+  <h3>Account Info</h3>
+  <form method="post" action="/dashboard/account">
+    <div class="card-row">
+      <div class="field inline">
+        <label>Role</label>
+        <span class="role label <%= user.role %>">
+          <%= `${user.role.charAt(0).toUpperCase()}${user.role.slice(1)}` %>
+        </span>
+      </div>
+    </div>
+    <div class="card-row">
+      <div class="field inline">
+        <label>Username</label>
+        <div class="icon left full">
+          <img src="/img/person.svg" alt="person" />
+          <input
+            name="username"
+            value="<%= user.username %>"
+            required
+            minlength="3"
+            maxlength="20"
+            pattern="^[A-Za-z0-9_\.]{3,19}$"
+            title="3-20 characters. Letters, numbers, periods, and underscores only."
+            autocomplete="username"
+          />
+        </div>
+      </div>
+
+      <div class="field inline">
+        <label>Email</label>
+        <div class="icon left full">
+          <img src="/img/mail.svg" alt="mail" />
+          <input
+            name="email"
+            type="email"
+            value="<%= user.email %>"
+            required
+          />
+        </div>
+      </div>
+      
+      <div class="field inline">
+        <label>First Name</label>
+        <div class="icon left full">
+          <img src="/img/person.svg" alt="person" />
+          <input
+            name="firstName"
+            value="<%= user.firstName %>"
+            required
+            minlength="2"
+            maxlength="50"
+            pattern="^[A-Z][a-zA-Z'\-]{1,49}$"
+            title="Start with a capital letter; letters, apostrophes, or hyphens."
+            autocomplete="given-name"
+          />
+        </div>
+      </div>
+
+      <div class="field inline">
+        <label>Last Name</label>
+        <div class="icon left full">
+          <img src="/img/person.svg" alt="person" />
+          <input
+            name="lastName"
+            value="<%= user.lastName %>"
+            required
+            minlength="2"
+            maxlength="50"
+            pattern="^[A-Z][a-zA-Z'\-]{1,49}$"
+            title="Start with a capital letter; letters, apostrophes, or hyphens."
+            autocomplete="family-name"
+          />
+        </div>
+      </div>
+
+      <div class="field inline">
+        <label>Birthday</label>
+        <div class="icon left full">
+          <img src="/img/date.svg" alt="date" />
+          <input
+            name="birthday"
+            type="date"
+            value="<%= user.birthday %>"
+            max="<%= new Date().toISOString().slice(0,10) %>"
+            required
+            autocomplete="bday"
+          />
+        </div>
+      </div>
+
+      <div class="field inline">
+        <label>Password</label>
+        <div class="icon left full">
+          <img src="/img/password.svg" alt="password" />
+          <input
+            name="password"
+            type="password"
+            placeholder="Change Password"
+            minlength="8"
+            pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$"
+            title="At least 8 characters, including at least one letter, one number, and one special character"
+            autocomplete="new-password"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <input class="button full" type="submit" value="Save Changes" />
+    </div>
+  </form>
+</section>

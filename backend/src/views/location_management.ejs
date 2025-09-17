@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("partials/head.ejs") %>
+        <link rel="stylesheet" href="/css/manage.css" />
+        <title>High Street Gym - Manage Locations</title>
+    </head>
+    <body>
+        <main>
+            <%- include("partials/header.ejs") %>
+            <section class="manage">
+                <h2>Manage Locations</h2>
+                
+                <form
+                    action="<%= ROUTES.MANAGE_LOCATIONS.getPath(location?.id) %>"
+                    method="post"
+                    class="card secondary"
+                >
+                    <div class="field inline">
+                        <label for="name">Name</label>
+                        <div class="icon left">
+                            <img src="/img/edit.svg" alt="Name icon" />
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                placeholder="Brisbane"
+                                value="<%= location ? location.name : '' %>"
+                                required
+                                minlength="2"
+                                maxlength="50"
+                                pattern="^[A-Za-z][A-Za-z0-9\s\-]{1,49}$"
+                                title="2-50 characters. Start with a letter. Letters, numbers, spaces, and hyphens only."
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="address">Address</label>
+                        <div class="icon left">
+                            <img src="/img/location.svg" alt="Address icon" />
+                            <input
+                                type="text"
+                                name="address"
+                                id="address"
+                                placeholder="123 Example Street"
+                                value="<%= location ? location.address : '' %>"
+                                minlength="5"
+                                maxlength="200"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="description">Description</label>
+                        <div class="icon left">
+                            <img src="/img/edit.svg" alt="Description icon" />
+                            <textarea
+                                name="description"
+                                id="description"
+                                placeholder="This is a sample description"
+                                minlength="10"
+                                maxlength="500"
+                            ><%= location ? location.description : '' %></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="availability">Availability</label>
+                        <div class="icon left">
+                            <img src="/img/time.svg" alt="Availability icon" />
+                            <input
+                                type="text"
+                                name="availability"
+                                id="availability"
+                                placeholder="e.g. Mon-Fri 9am-5pm"
+                                value="<%= location ? location.availability : '' %>"
+                                maxlength="100"
+                            />
+                        </div>
+                    </div>
+
+                    <% if (location) { %>
+                        <div class="icon left">
+                            <img src="/img/delete.svg" alt="Delete icon" />
+                            <input
+                                formaction="<%= ROUTES.MANAGE_LOCATIONS_DELETE.getPath(location.id) %>"
+                                formmethod="post"
+                                class="button delete full"
+                                type="submit"
+                                value="Delete"
+                            >
+                        </div>
+                    <% } %>
+
+                    <div class="row gap-2">
+                        <a
+                            href="<%= location ? ROUTES.MANAGE_LOCATIONS.getPath() : ROUTES.DASHBOARD.getPath() %>"
+                            class="button secondary full"
+                        >
+                            Cancel
+                        </a>
+                        <div class="icon right full">
+                            <img src="/img/save.svg" alt="Save icon" />
+                            <input
+                                type="submit"
+                                class="button full"
+                                value="<%= location ? 'Save' : 'Create' %>"
+                            >
+                        </div>
+                    </div>
+                </form>
+
+                <h3>Locations</h3>
+                
+                <form class="row items-center gap-2">
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        placeholder="Search locations by name, address, or description"
+                        class="full"
+                        value="<%= search %>"
+                        minlength="2"
+                        maxlength="100"
+                    />
+                </form>
+
+                <% if (locations.length) { %>
+                    <ul>
+                        <% locations.forEach(location => { %>
+                            <%- include('partials/manage_list_item.ejs', { name: location.name, url: ROUTES.MANAGE_LOCATIONS.getPath(location.id) }) %>
+                        <% }) %>
+                    </ul>
+                <% } else { %>
+                    <p>No locations found.</p>
+                <% } %>
+            </section>
+            <%- include("partials/footer.ejs") %>
+        </main>
+    </body>
+</html>

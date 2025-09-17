@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("partials/head.ejs") %>
+        <title>Status</title>
+    </head>
+    <body>
+        <main>
+            <%- include("partials/header.ejs") %>
+            <section>
+                <form class="card">
+                    <h2><%= status %></h2>
+                    <p class="muted"><%= message %></p>
+                    <div class="icon right full">
+                        <img src="/img/arrow-right.svg" alt="Go Icon" />
+                        <a href="<%= routePath %>" class="button full"><%= routeName %></a>
+                    </div>
+                </form>
+            </section>
+            <%- include("partials/footer.ejs") %>
+        </main>
+    </body>
+</html>

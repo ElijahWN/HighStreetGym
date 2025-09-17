@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("partials/head.ejs") %>
+        <title>High Street Gym - Login</title>
+    </head>
+    <body>
+        <main>
+            <%- include("partials/header.ejs") %>
+
+            <section>
+                <form method="post" action="<%= ROUTES.LOGIN.getPath() %>" class="card">
+                    <h2>Login</h2>
+
+                    <div>
+                        <label for="email">E-mail</label>
+                        <div class="icon left">
+                            <img src="/img/mail.svg" alt="E-mail Icon" />
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="email@example.com"
+                                required
+                                autocomplete="email"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password">Password</label>
+                        <div class="icon left">
+                            <img src="/img/password.svg" alt="Password Icon" />
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="••••••••••••••••"
+                                required
+                                minlength="8"
+                                autocomplete="current-password"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <a href="<%= ROUTES.REGISTER.getPath() %>" class="button secondary full">
+                            Register
+                        </a>
+
+                        <div class="icon right full">
+                            <img src="/img/arrow-right.svg" alt="Login Icon" />
+                            <input type="submit" value="Login" class="button full" />
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <%- include("partials/footer.ejs") %>
+        </main>
+    </body>
+</html>

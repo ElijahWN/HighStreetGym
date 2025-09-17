@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("partials/head.ejs") %>
+        <link rel="stylesheet" href="/css/manage.css" />
+        <title>High Street Gym - Manage Activities</title>
+    </head>
+    <body>
+        <main>
+            <%- include("partials/header.ejs") %>
+            <section class="manage">
+                <h2>Manage Activities</h2>
+                
+                <form
+                    action="<%= ROUTES.MANAGE_ACTIVITIES.getPath(activity?.id) %>"
+                    method="post"
+                    class="card secondary"
+                >
+                    <div class="field inline">
+                        <label for="name">Name</label>
+                        <div class="icon left">
+                            <img src="/img/run.svg" alt="Name icon" />
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                placeholder="Boxing"
+                                value="<%= activity?.name %>"
+                                required
+                                minlength="2"
+                                maxlength="50"
+                                pattern="^[A-Za-z][A-Za-z0-9\s\-]{1,49}$"
+                                title="2-50 characters. Start with a letter. Letters, numbers, spaces, and hyphens only."
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="description">Description</label>
+                        <div class="icon left">
+                            <img src="/img/edit.svg" alt="Description icon" />
+                            <textarea
+                                name="description"
+                                id="description"
+                                placeholder="This is a sample description"
+                                minlength="10"
+                                maxlength="500"
+                            ><%= activity?.description %></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="capacity">Capacity</label>
+                        <div class="icon left">
+                            <img src="/img/person.svg" alt="Capacity icon" />
+                            <input
+                                type="number"
+                                name="capacity"
+                                id="capacity"
+                                min="1"
+                                step="1"
+                                placeholder="6"
+                                value="<%= activity ? (activity.capacity ?? 6) : 6 %>"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="duration">Duration (hours)</label>
+                        <div class="icon left">
+                            <img src="/img/time.svg" alt="Duration icon" />
+                            <input
+                                type="number"
+                                name="duration"
+                                id="duration"
+                                min="0.25"
+                                step="0.25"
+                                placeholder="1"
+                                value="<%= activity ? (activity.duration ?? 1) : 1 %>"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <% if (activity) { %>
+                        <div class="icon left">
+                            <img src="/img/delete.svg" alt="Delete icon" />
+                            <input
+                                formaction="<%= ROUTES.MANAGE_ACTIVITIES_DELETE.getPath(activity.id) %>"
+                                formmethod="post"
+                                class="button delete full"
+                                type="submit"
+                                value="Delete"
+                            >
+                        </div>
+                    <% } %>
+
+                    <div class="row gap-2">
+                        <% if (activity) { %>
+                            <a
+                                href="<%= ROUTES.MANAGE_ACTIVITIES.getPath() %>"
+                                class="button secondary full"
+                            >
+                                Cancel
+                            </a>
+                            <div class="icon right full">
+                                <img src="/img/save.svg" alt="Save icon" />
+                                <input type="submit" class="button full" value="Save">
+                            </div>
+                        <% } else { %>
+                            <a
+                                href="<%= ROUTES.DASHBOARD.getPath() %>"
+                                class="button secondary full"
+                            >
+                                Cancel
+                            </a>
+                            <div class="icon right full">
+                                <img src="/img/save.svg" alt="Save icon" />
+                                <input type="submit" class="button full" value="Create">
+                            </div>
+                        <% } %>
+                    </div>
+                </form>
+
+                <h3>Activities</h3>
+
+                <form class="row items-center gap-2">
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        placeholder="Search activities by name or description"
+                        class="full"
+                        value="<%= search %>"
+                        minlength="2"
+                        maxlength="100"
+                    />
+                </form>
+
+                <% if (activities.length) { %>
+                    <ul>
+                        <% activities.forEach(activity => { %>
+                            <%- include('partials/manage_list_item.ejs', {
+                                name: activity.name,
+                                url: ROUTES.MANAGE_ACTIVITIES.getPath(activity.id)
+                            })%>
+                        <% }) %>
+                    </ul>
+                <% } else { %>
+                    <p>No activities found.</p>
+                <% } %>
+            </section>
+            <%- include("partials/footer.ejs") %>
+        </main>
+    </body>
+</html>

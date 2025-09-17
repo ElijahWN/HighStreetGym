@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("partials/head.ejs") %>
+        <link rel="stylesheet" href="/css/manage.css" />
+        <title>High Street Gym - Manage Users</title>
+    </head>
+    <body>
+        <main>
+            <%- include("partials/header.ejs") %>
+            <section class="manage">
+                <h2>Manage Users</h2>
+
+                <form
+                    action="<%= ROUTES.MANAGE_USERS.getPath(managedUser?.id) %>"
+                    method="post"
+                    class="card secondary"
+                >
+                    <div class="field inline">
+                        <label for="role">Role</label>
+                        <div class="icon left">
+                            <img src="/img/settings.svg" alt="Role icon" />
+                            <select name="role" id="role">
+                                <option value="member" <%= managedUser?.role === 'member' ? 'selected' : '' %>>Member</option>
+                                <option value="trainer" <%= managedUser?.role === 'trainer' ? 'selected' : '' %>>Trainer</option>
+                                <option value="admin" <%= managedUser?.role === 'admin' ? 'selected' : '' %>>Admin</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="username">Username</label>
+                        <div class="icon left">
+                            <img src="/img/edit.svg" alt="Username icon" />
+                            <input
+                                type="text"
+                                name="username"
+                                id="username"
+                                placeholder="username"
+                                value="<%= managedUser?.username %>"
+                                required
+                                minlength="3"
+                                maxlength="20"
+                                pattern="^[A-Za-z0-9_\.]{3,19}$"
+                                title="3-20 characters. Letters, numbers, periods, and underscores only."
+                                autocomplete="username"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="firstName">First Name</label>
+                        <div class="icon left">
+                            <img src="/img/person.svg" alt="First name icon" />
+                            <input
+                                type="text"
+                                name="firstName"
+                                id="firstName"
+                                placeholder="John"
+                                value="<%= managedUser?.firstName %>"
+                                required
+                                minlength="2"
+                                maxlength="50"
+                                pattern="^[A-Z][a-zA-Z'\-]{1,49}$"
+                                title="Start with a capital letter; letters, apostrophes, or hyphens."
+                                autocomplete="given-name"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="lastName">Last Name</label>
+                        <div class="icon left">
+                            <img src="/img/person.svg" alt="Last name icon" />
+                            <input
+                                type="text"
+                                name="lastName"
+                                id="lastName"
+                                placeholder="Doe"
+                                value="<%= managedUser?.lastName %>"
+                                required
+                                minlength="2"
+                                maxlength="50"
+                                pattern="^[A-Z][a-zA-Z'\-]{1,49}$"
+                                title="Start with a capital letter; letters, apostrophes, or hyphens."
+                                autocomplete="family-name"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="birthday">Birthday</label>
+                        <div class="icon left">
+                            <img src="/img/date.svg" alt="Birthday icon" />
+                            <input
+                                type="date"
+                                name="birthday"
+                                id="birthday"
+                                value="<%= toInputDate(managedUser?.birthday) %>"
+                                max="<%= new Date().toISOString().slice(0,10) %>"
+                                autocomplete="bday"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="email">Email</label>
+                        <div class="icon left">
+                            <img src="/img/mail.svg" alt="Email icon" />
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="user@example.com"
+                                value="<%= managedUser?.email %>"
+                                required
+                                autocomplete="email"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field inline">
+                        <label for="password">Password</label>
+                        <div class="icon left">
+                            <img src="/img/password.svg" alt="Password icon" />
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="<%= managedUser ? 'Leave blank to keep current password' : 'Enter a strong password' %>"
+                                <%= managedUser ? '' : 'required' %>
+                                minlength="8"
+                                pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$"
+                                title="At least 8 characters, including at least one letter, one number, and one special character"
+                                autocomplete="new-password"
+                            />
+                        </div>
+                    </div>
+
+                    <% if (managedUser) { %>
+                        <div class="icon left">
+                            <img src="/img/delete.svg" alt="Delete icon" />
+                            <input
+                                formaction="<%= ROUTES.MANAGE_USERS_DELETE.getPath(managedUser.id) %>"
+                                formmethod="post"
+                                class="button delete full"
+                                type="submit"
+                                value="Delete"
+                            >
+                        </div>
+                    <% } %>
+
+                    <div class="row gap-2">
+                        <a
+                            href="<%= managedUser ? ROUTES.MANAGE_USERS.getPath() : ROUTES.DASHBOARD.getPath() %>"
+                            class="button secondary full"
+                        >
+                            Cancel
+                        </a>
+                        
+                        <div class="icon right full">
+                            <img src="/img/save.svg" alt="Save icon" />
+                            <input
+                                type="submit"
+                                class="button full"
+                                value="<%= managedUser ? 'Save' : 'Create' %>"
+                            >
+                        </div>
+                    </div>
+                </form>
+
+                <h3>Users</h3>
+
+                <form class="row items-center gap-2">
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        placeholder="Search users by name, username or email"
+                        class="full"
+                        value="<%= search %>"
+                        minlength="2"
+                        maxlength="100"
+                    />
+                </form>
+
+                <% if (users.length) { %>
+                    <ul>
+                        <% users.forEach(user => { %>
+                            <%- include('partials/manage_list_item.ejs', { name: `${user.firstName} ${user.lastName}`, role: user.role, url: ROUTES.MANAGE_USERS.getPath(user.id) }) %>
+                        <% }) %>
+                    </ul>
+                <% } else { %>
+                    <p>No users found.</p>
+                <% } %>
+            </section>
+            <%- include("partials/footer.ejs") %>
+        </main>
+    </body>
+</html>

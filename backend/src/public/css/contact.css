@@ -1,0 +1,55 @@
+section.contact {
+    width: 90vw;
+}
+
+section.contact h2 {
+    margin-bottom: var(--gap2);
+}
+
+section.contact .intro p {
+    color: var(--text2);
+    max-width: 60ch;
+    margin-bottom: var(--gap4);
+}
+
+section.contact .locations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap4);
+}
+
+section.contact .card {
+    background: var(--background2);
+    padding: var(--gap3);
+}
+
+section.contact .locations .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap1);
+    flex-grow: 1;
+    flex-basis: calc((100% - 2 * var(--gap4)) / 3);
+    padding: var(--gap2);
+}
+
+section.contact .card h3 {
+    margin-bottom: var(--gap1);
+    text-wrap: nowrap;
+}
+
+
+@media (max-width: 1024px) {
+    section.contact .locations .card {
+        flex-basis: calc((100% - var(--gap4)) / 2);
+    }
+}
+
+@media (max-width: 768px) {
+    section.contact .locations {
+        gap: var(--gap3);
+    }
+
+    section.contact .locations .card {
+        flex-basis: 100%;
+    }
+}

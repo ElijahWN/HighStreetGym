@@ -1,0 +1,85 @@
+section.activities {
+    width: 90vw;
+}
+
+section.activities .heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--gap3);
+    gap: var(--gap2);
+}
+
+section.activities .week-range {
+    color: var(--text2);
+    text-align: right;
+    margin-bottom: var(--gap2);
+}
+
+section.activities .timetable {
+    border: 1px solid var(--border1);
+    border-radius: var(--gap1);
+    overflow: hidden;
+    margin-bottom: var(--gap5);
+}
+
+section.activities table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+section.activities th,
+section.activities td {
+    border: 1px solid var(--border1);
+    padding: var(--gap1);
+    text-align: center;
+    font-size: var(--font2);
+    height: var(--gap4);
+}
+
+section.activities thead th {
+    background: var(--background3);
+}
+
+section.activities tbody th {
+    text-align: left;
+    background: var(--background2);
+}
+
+section.activities .activity-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--gap4);
+}
+
+section.activities .card {
+    background: var(--background2);
+    overflow: hidden;
+    padding: 0;
+}
+
+section.activities .card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+}
+
+section.activities .card>div {
+    padding: var(--gap2);
+}
+
+@media (max-width: 768px) {
+    section.activities .timetable {
+        overflow: auto
+    }
+
+    section.activities table {
+        min-width: 700px
+    }
+
+    section.activities .activity-cards {
+        grid-template-columns: 1fr
+    }
+}

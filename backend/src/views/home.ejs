@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("partials/head.ejs") %>
+        <link rel="stylesheet" href="/css/home.css" />
+        <title>High Street Gym - Home</title>
+    </head>
+    <body>
+        <main>
+            <%- include("partials/header.ejs") %>
+            <section class="home">
+                <h2>High Street Gym</h2>
+                <p>
+                    We have created gyms that we would love to train in and
+                    share that passion and enthusiasm with our valued
+                    members. Our gyms have an old school feel with a new
+                    school attitude!
+                </p>
+                <div class="actions">
+                    <a href="<%= ROUTES.ACTIVITIES.getPath() %>" class="button secondary">See Timetable</a>
+                    <a href="<%= ROUTES.SESSIONS.getPath() %>" class="button secondary">View Sessions</a>
+                    <a href="<%= ROUTES.LOGIN.getPath() %>" class="button">Login</a>
+                </div>
+            </section>
+            <%- include("partials/footer.ejs") %>
+        </main>
+    </body>
+</html>
