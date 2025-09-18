@@ -1,6 +1,8 @@
 # High Street Gym (Express + EJS)
 
-A full‑stack MVC web application for a gym management system. Members can browse and book sessions, trainers can manage their assigned sessions, and admins can manage users, activities, locations, sessions, and bookings. The app uses server‑rendered EJS views and a MySQL database.
+A full‑stack MVC web application for a gym management system.
+Members can browse and book sessions, trainers can manage their assigned sessions, and admins can manage users, activities, locations, sessions, and bookings.
+The app uses server‑rendered EJS views and a MySQL database.
 
 
 ## Tech stack
