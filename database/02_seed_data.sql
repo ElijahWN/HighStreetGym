@@ -61,7 +61,6 @@ INSERT INTO users (id, role, username, first_name, last_name, birthday, email, p
   (42,'member','riley.porter','Riley','Porter','1992-07-19','riley.porter@example.com','Abc123!!'),
   (43,'member','sienna.perry','Sienna','Perry','1991-08-20','sienna.perry@example.com','Abc123!!'),
   (44,'member','toby.grant','Toby','Grant','1990-09-21','toby.grant@example.com','Abc123!!'),
-  -- Added trainers to reach 3-5 per location (IDs 45-60)
   (45,'trainer','riley.carter','Riley','Carter','1988-01-05','riley.carter@example.com','Abc123!!'),
   (46,'trainer','morgan.gray','Morgan','Gray','1986-02-06','morgan.gray@example.com','Abc123!!'),
   (47,'trainer','blake.hayes','Blake','Hayes','1990-03-07','blake.hayes@example.com','Abc123!!'),
