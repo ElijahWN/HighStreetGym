@@ -30,6 +30,9 @@ The app uses server‑rendered EJS views and a MySQL database.
   - `01_create_schema.sql` - database and table DDL (with triggers)
   - `02_seed_data.sql` - initial data (locations, users, activities, sessions, bookings, microblogs)
 - `frontend/` - frontend workspace (React+TypeScript - not used by the current app)
+- `screenshots/` - Screenshots of the website (allows you to view the website without running it locally)
+    - `desktop/` - Screenshots from a desktop device
+    - `mobile/` - Screenshots from a mobile device
 - `package.json` - workspace config
 
 
